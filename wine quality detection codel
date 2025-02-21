@@ -1,0 +1,17 @@
+from sklearn.datasets import load_wine
+import pandas as pd
+w = load_wine()
+df = pd.DataFrame(w.data, columns = w.feature_names)
+df["target"] = w.target
+from sklearn.model_selection import train_test_split
+inp = df.drop(["target"], axis="columns")
+oup = df["target"]
+x_train , x_test , y_train , y_test = train_test_split(inp,oup, test_size = 0.1, random_state=42)
+from sklearn.naive_bayes import GaussianNB
+model = GaussianNB()
+model.fit(x_train , y_train)
+model.score(x_test, y_test)
+from sklearn.naive_bayes import MultinomialNB
+md = MultinomialNB()
+md.fit(x_train,y_train)
+md.score(x_test,y_test)
